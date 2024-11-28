@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="maxPage">20</integer>
+    <integer-array name="numbers">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+    </integer-array>
+    <bool name="isProductionMode">true</bool>
+    <color name="background">#FFD3D3</color>
+</resources>
