@@ -13,17 +13,37 @@ import androidx.compose.ui.tooling.preview.Preview
 import haris.learnandroiddasar.ui.theme.LearnAndroidBasicTheme
 
 class MainActivity : ComponentActivity() {
+    private lateinit var nameEditText: EditText
+    private lateinit var sayHelloButton: Button
+    private lateinit var sayHelloTextView: TextView
+
+    private fun initComponents() {
+        val nameEditText: EditText = findViewById(R.id.nameEditText)
+        val sayHelloButton: Button = findViewById(R.id.sayHelloButton)
+        val sayHelloTextView: TextView = findViewById(R.id.sayHelloTextView)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.hello_world)
 
-        val nameEditText: EditText = findViewById(R.id.nameEditText)
-        val sayHelloButton: Button = findViewById(R.id.sayHelloButton)
-        val sayHelloTextView: TextView = findViewById(R.id.sayHelloTextView)
+        initComponents()
 
         sayHelloTextView.text = resources.getText(R.string.app_name)
 
         sayHelloButton.setOnClickListener {
+
+//            Get json using assets
+            val jsonAssets = assets.open("sample.json")
+                .bufferedReader()
+                .use { it.readText() }
+            Log.i("ASSETS", jsonAssets)
+
+//            Get json use raw
+            val jsonRaw = resources.openRawResource(R.raw.sample)
+                .bufferedReader()
+                .use { it.readText() }
+            Log.i("RAW", jsonRaw)
 
 //            Get resource values strings
             Log.d("BASIC", "This is debug log")
@@ -37,7 +57,7 @@ class MainActivity : ComponentActivity() {
             Log.i("VALUE_RESOURCE", resources.getBoolean(R.bool.isProductionMode).toString())
             Log.i("VALUE_RESOURCE", resources.getColor(R.color.background, theme).toString())
 
-            sayHelloTextView.setBackgroundColor(resources.getColor(R.color.background, theme))
+            sayHelloButton.setBackgroundColor(resources.getColor(R.color.background, theme))
 
             val name = nameEditText.text.toString()
             sayHelloTextView.text = resources.getString(R.string.sayHelloTextView, name)
